@@ -1,12 +1,12 @@
 import React from "react";
 import { Container, Navbar } from "react-bootstrap";
-import { Form } from "../components/Form";
+import { FormGet } from "../components/FormGet";
 export const NavBar = () => {
 	return (
 		<>
 			<Navbar bg='red' expand='lg'>
 				<Container>
-					<Form />
+					<FormGet />
 				</Container>
 			</Navbar>
 		</>
