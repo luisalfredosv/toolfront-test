@@ -6,14 +6,18 @@ import { Main } from "./layouts/Main";
 
 import { View } from "./components/View";
 
+import { Provider } from "react-redux";
+
+import store from "./store";
+
 function App() {
 	return (
-		<>
+		<Provider store={store}>
 			<NavBar />
-			<Main>
+			<Main className='justify-content-center'>
 				<View />
 			</Main>
-		</>
+		</Provider>
 	);
 }
 
