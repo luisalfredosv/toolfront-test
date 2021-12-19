@@ -6,38 +6,39 @@ import {
 	Container,
 	Form,
 } from "react-bootstrap";
+import { useDispatch } from "react-redux";
 
-export const FormGet = (event) => {
-	const input = "";
+import { send } from "../actions/responsesActions";
 
-	const [inputValue, setInputValue] = useState(input);
-
+export const FormGet = () => {
 	const handleChange = (e) => {
-		const value = e.target.value;
-		setInputValue(value);
+		const input = e.target.value;
+		setInput(input);
 	};
 
-	// const body = {
-	// 	text: this.state.name,
-	// };
+	const dispatch = useDispatch();
+	const [input, setInput] = useState("");
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+		petition(input);
+	};
 
-		console.log(this.input);
+	const petition = async (text) => {
+		dispatch(send(text));
 	};
 
 	return (
 		<>
-			<Form onSubmit={handleSubmit}>
+			<Form onSubmit={handleSubmit} className='justify-content-center'>
 				<Container>
 					<InputGroup className='mb-3'>
 						<FormControl
 							placeholder='Insert Text'
 							aria-label='Insert Text'
 							aria-describedby='basic-addon2'
-							value={inputValue}
 							onChange={handleChange}
+							value={input}
 						/>
 						<Button
 							variant='outline-secondary'
