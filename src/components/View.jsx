@@ -1,26 +1,19 @@
 import React from "react";
-import { Container } from "react-bootstrap";
+import { useSelector } from "react-redux";
+import { Container, ListGroup } from "react-bootstrap";
+
 export const View = () => {
-	const data = [
-		{
-			text: "First text",
-		},
-		{
-			text: "Second text",
-		},
-		{
-			text: "Third text",
-		},
-	];
+	const { responses } = useSelector((store) => store.responses);
 
 	return (
 		<>
 			<Container>
 				<h1>Results:</h1>
-
-				{data.map(({ text }) => (
-					<p>{text}</p>
-				))}
+				<ListGroup>
+					{responses.map(({ text, palindrome }, i) => (
+						<ListGroup.Item key={i}>{text}</ListGroup.Item>
+					))}
+				</ListGroup>
 			</Container>
 		</>
 	);
