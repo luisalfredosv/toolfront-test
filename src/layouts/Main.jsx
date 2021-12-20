@@ -1,10 +1,13 @@
 import React from "react";
-import { Container } from "react-bootstrap";
 
 export const Main = ({ children }) => {
 	return (
 		<>
-			<Container>{children}</Container>
+			<div>
+				<div>
+					<div className='justify-content-center'>{children}</div>
+				</div>
+			</div>
 		</>
 	);
 };

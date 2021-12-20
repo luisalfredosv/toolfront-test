@@ -1,11 +1,5 @@
 import React, { useState } from "react";
-import {
-	InputGroup,
-	FormControl,
-	Button,
-	Container,
-	Form,
-} from "react-bootstrap";
+import { FormControl, Button, Form } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 
 import { send } from "../actions/responsesActions";
@@ -13,42 +7,75 @@ import { send } from "../actions/responsesActions";
 export const FormGet = () => {
 	const handleChange = (e) => {
 		const input = e.target.value;
-		setInput(input);
+		setForm({
+			input,
+		});
 	};
 
 	const dispatch = useDispatch();
-	const [input, setInput] = useState("");
+	const [form, setForm] = useState({
+		input: "",
+		alert: false,
+		msg: "",
+	});
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		petition(input);
+		setForm({
+			alert: false,
+			msg: "",
+		});
+		petition(form.input);
 	};
 
 	const petition = async (text) => {
-		dispatch(send(text));
+		dispatch(send(text))
+			.then(() => {
+				setForm({
+					input: "",
+					alert: false,
+					msg: "",
+				});
+			})
+			.catch((e) => {
+				setForm({
+					alert: true,
+					msg: e.message,
+				});
+			});
+	};
+
+	const showMessage = () => {
+		return (
+			<div className=''>
+				<p>{form.msg}</p>
+			</div>
+		);
 	};
 
 	return (
 		<>
-			<Form onSubmit={handleSubmit} className='justify-content-center'>
-				<Container>
-					<InputGroup className='mb-3'>
-						<FormControl
-							placeholder='Insert Text'
-							aria-label='Insert Text'
-							aria-describedby='basic-addon2'
-							onChange={handleChange}
-							value={input}
-						/>
-						<Button
-							variant='outline-secondary'
-							id='button-addon2'
-							type='submit'
-						>
-							Send
-						</Button>
-					</InputGroup>
-				</Container>
+			<Form onSubmit={handleSubmit} className='mx-4'>
+				<div className='d-flex'>
+					<FormControl
+						placeholder='Insert Text'
+						aria-label='Insert Text'
+						aria-describedby='basic-addon2'
+						onChange={handleChange}
+						value={form.input}
+						className='input-send'
+					/>
+					<Button
+						className='btn-purple'
+						variant='primary'
+						id='button-addon2'
+						type='submit'
+					>
+						Send
+					</Button>
+				</div>
+
+				{form.alert && showMessage()}
 			</Form>
 		</>
 	);
