@@ -1,0 +1,17 @@
+body {
+	background-color: rgba(128, 128, 128, 0.404) !important;
+}
+
+.content {
+	background-color: white !important;
+}
+
+.btn-purple {
+	background-color: #300870cc !important;
+	border-color: #712ae4cc !important;
+}
+
+.input-send{
+    width: 400px;
+    margin-right: 10px;
+}
