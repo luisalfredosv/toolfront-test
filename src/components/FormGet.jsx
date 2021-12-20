@@ -5,19 +5,19 @@ import { useDispatch } from "react-redux";
 import { send } from "../actions/responsesActions";
 
 export const FormGet = () => {
-	const handleChange = (e) => {
-		const input = e.target.value;
-		setForm({
-			input,
-		});
-	};
-
 	const dispatch = useDispatch();
 	const [form, setForm] = useState({
 		input: "",
 		alert: false,
 		msg: "",
 	});
+
+	const handleChange = (e) => {
+		setForm({
+			...form,
+			[e.target.name]: e.target.value,
+		});
+	};
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -58,11 +58,12 @@ export const FormGet = () => {
 			<Form onSubmit={handleSubmit} className='mx-4'>
 				<div className='d-flex'>
 					<FormControl
+						name='input'
 						placeholder='Insert Text'
 						aria-label='Insert Text'
 						aria-describedby='basic-addon2'
 						onChange={handleChange}
-						value={form.input}
+						value={form.input || ""}
 						className='input-send'
 					/>
 					<Button
@@ -70,6 +71,7 @@ export const FormGet = () => {
 						variant='primary'
 						id='button-addon2'
 						type='submit'
+						name='btn-submit'
 					>
 						Send
 					</Button>
